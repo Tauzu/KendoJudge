@@ -17,14 +17,18 @@ class Ippon:
             waza_wait (int): 技発動までのウェイト
         """
         self.waza_frame = pyxel.frame_count + waza_wait
-        self.waza_flag = False
 
         self.winner = "red"
 
         self.result = None
 
-    def update(self):
-        self.waza_flag = ( pyxel.frame_count >= self.waza_frame )
+    def update(self, kenshi_white:Kenshi, kenshi_red:Kenshi):
+
+        if pyxel.frame_count == self.waza_frame :
+            if self.winner == "white":
+                kenshi_white.x += 32
+            elif self.winner == "red":
+                kenshi_red.x -= 32
 
         if self.result is not None :
             return
@@ -71,10 +75,7 @@ class App:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
 
-        self.ippon.update()
-
-        if self.ippon.waza_flag:
-            self.kenshi_white.x += 32
+        self.ippon.update(self.kenshi_white, self.kenshi_red)
             
 
     def draw(self):
