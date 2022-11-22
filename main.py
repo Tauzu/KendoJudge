@@ -1,4 +1,5 @@
 import pyxel
+import random
 
 class Kenshi:
     def __init__(self, x:int, w:int) -> None:
@@ -18,7 +19,8 @@ class Ippon:
         """
         self.waza_frame = pyxel.frame_count + waza_wait
 
-        self.winner = "red"
+        #random.choiceは速度的に微妙だが、コンストラクタは速度を求めないので可読性のために使用
+        self.winner = random.choice(["white", "red"])
 
         self.result = None
 
